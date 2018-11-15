@@ -1,3 +1,14 @@
+<!-- default file list -->
+*Files to look at*:
+
+* [CustomRangeTrackBar.cs](./CS/CustomRangeTrackBar.cs) (VB: [CustomRangeTrackBar.vb](./VB/CustomRangeTrackBar.vb))
+* [Form1.cs](./CS/Form1.cs) (VB: [Form1.vb](./VB/Form1.vb))
+* [IntersectEventArgs.cs](./CS/IntersectEventArgs.cs) (VB: [IntersectEventArgs.vb](./VB/IntersectEventArgs.vb))
+* [mrtbPainter.cs](./CS/mrtbPainter.cs) (VB: [mrtbPainter.vb](./VB/mrtbPainter.vb))
+* [mrtbViewInfo.cs](./CS/mrtbViewInfo.cs) (VB: [mrtbViewInfo.vb](./VB/mrtbViewInfo.vb))
+* [RangeList.cs](./CS/RangeList.cs) (VB: [RangeList.vb](./VB/RangeList.vb))
+* [ritem.cs](./CS/ritem.cs) (VB: [ritem.vb](./VB/ritem.vb))
+<!-- default file list end -->
 # How to create a custom RangeTrackBarControl with multiple tick marks.
 
 
