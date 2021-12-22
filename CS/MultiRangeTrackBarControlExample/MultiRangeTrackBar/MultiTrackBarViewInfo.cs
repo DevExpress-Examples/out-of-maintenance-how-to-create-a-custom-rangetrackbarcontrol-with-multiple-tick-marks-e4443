@@ -38,7 +38,7 @@ namespace MultiRangeTrackBarControlExample {
             }
         }
 
-        public void CreateThumbs(object editValue = null) {
+        public void CreateThumbs() {
             var list = EditValue as IEnumerable<int>;
             if (list == null) {
                 Thumbs = new CustomThumb[0];
