@@ -6,7 +6,14 @@
 <!-- default file list -->
 *Files to look at*:
 
-
+* [MultiRangeTrackBar.cs](./CS/MultiRangeTrackBarControlExample/MultiRangeTrackBar/MultiRangeTrackBar.cs) (VB: [MultiRangeTrackBar.vb](./VB/MultiRangeTrackBarControlExample/MultiRangeTrackBar/MultiRangeTrackBar.vb))
+* [RepositoryItemMultiTrackBar.cs](./CS/MultiRangeTrackBarControlExample/MultiRangeTrackBar/RepositoryItemMultiTrackBar.cs) (VB: [RepositoryItemMultiTrackBar.vb](./VB/MultiRangeTrackBarControlExample/MultiRangeTrackBar/RepositoryItemMultiTrackBar.vb))
+* [MultiTrackBarViewInfo.cs](./CS/MultiRangeTrackBarControlExample/MultiRangeTrackBar/MultiTrackBarViewInfo.cs) (VB: [MultiTrackBarViewInfo.vb](./VB/MultiRangeTrackBarControlExample/MultiRangeTrackBar/MultiTrackBarViewInfo.vb))
+* [MultiTrackBarObjectPainter.cs](./CS/MultiRangeTrackBarControlExample/MultiRangeTrackBar/MultiTrackBarObjectPainter.cs) (VB: [MultiTrackBarObjectPainter.vb](./VB/MultiRangeTrackBarControlExample/MultiRangeTrackBar/MultiTrackBarObjectPainter.vb))
+* [MainForm.cs](./CS/MultiRangeTrackBarControlExample/MainForm.cs) (VB: [MainForm.vb](./VB/MultiRangeTrackBarControlExample/MainForm.vb))
 <!-- default file list end -->
 # How to create a custom RangeTrackBarControl with multiple tick marks.
 
+This example illustrates how to create a custom `TrackBarControl` with multiple thumbs.
+
+Thumbs can be paired into ranges visually using the `RepositoryItemMultiTrackBar.DrawRanges` property (set to `true` by default).
