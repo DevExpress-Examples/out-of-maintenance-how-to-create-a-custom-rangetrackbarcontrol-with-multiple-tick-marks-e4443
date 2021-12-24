@@ -14,6 +14,10 @@
 <!-- default file list end -->
 # How to create a custom RangeTrackBarControl with multiple tick marks.
 
-This example illustrates how to create a custom `TrackBarControl` with multiple thumbs.
+This example illustrates how to draw and handle multiple tick marks in a custom `TrackBarControl`.
 
-Thumbs can be paired into ranges visually using the `RepositoryItemMultiTrackBar.DrawRanges` property (set to `true` by default).
+* Tick marks are stored in the **MultiRangeTrackBar.Value** property (of the [ObservableCollection](https://docs.microsoft.com/en-us/dotnet/api/system.collections.objectmodel.observablecollection-1) type). Each element represents a tick mark, and its value represents its position. New tick marks can be created by adding their positions to the collection. Elements must be ordered by their values.
+* Each tick mark's position is limited by its neighboring tick marks' positions. This behavior is defined in the **MultiRangeTrackBar.OnMouseMove** button, and it can be changed depending on the usage scenario.
+* The ranges in this example are purely visual, and are drawn between each pair of tick marks. This can be disabled using the **RepositoryItemMultiTrackBar.DrawRanges** property.
+* Due to the use of the **ObservableCollection** type for the editor's value, it may work incorrectly in in-place mode.
+
