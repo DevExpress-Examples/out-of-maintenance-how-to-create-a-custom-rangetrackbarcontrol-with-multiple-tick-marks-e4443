@@ -4,6 +4,7 @@ Imports System.Collections.Generic
 Imports System.Collections.ObjectModel
 Imports System.ComponentModel
 Imports System.Linq
+Imports System.Runtime.CompilerServices
 Imports System.Windows.Forms
 
 Namespace MultiRangeTrackBarControlExample
@@ -94,18 +95,30 @@ Namespace MultiRangeTrackBarControlExample
         Protected Overrides Sub OnMouseDown(ByVal e As MouseEventArgs)
             MyBase.OnMouseDown(e)
             Dim value As Integer = ViewInfo.ValueFromPoint(e.Location)
-            ActiveThumbIndex = Values.IndexOf(value)
+            If Values.Contains(value) Then
+                IsDragStarted = True
+                DraggedValue = value
+            End If
         End Sub
 
-        Protected Overrides Sub OnMouseMove(ByVal e As MouseEventArgs)
+        Protected Overrides Sub OnMouseMove(e As MouseEventArgs)
             MyBase.OnMouseMove(e)
+
+            If IsDragStarted Then
+                Dim newValue As Integer = ViewInfo.ValueFromPoint(e.Location)
+
+                If DraggedValue <> newValue Then
+                    IsDragStarted = False
+                    ActiveThumbIndex = If(newValue < DraggedValue, Values.IndexOf(DraggedValue), Values.LastIndexOf(DraggedValue))
+                End If
+            End If
 
             If ActiveThumbIndex <> -1 Then
                 Dim valueFromPoint As Integer = ViewInfo.ValueFromPoint(e.Location)
-                Dim minBound = If(ActiveThumbIndex > 0, Values(ActiveThumbIndex - 1), Properties.Minimum)
-                Dim maxBound = If(ActiveThumbIndex < Values.Count - 1, Values(ActiveThumbIndex + 1), Properties.Maximum)
+                Dim minBound As Integer = If(ActiveThumbIndex > 0, Values(ActiveThumbIndex - 1), Properties.Minimum)
+                Dim maxBound As Integer = If(ActiveThumbIndex < Values.Count - 1, Values(ActiveThumbIndex + 1), Properties.Maximum)
                 Dim newValue = Math.Max(minBound, Math.Min(maxBound, valueFromPoint))
-                Dim oldValue = Values(ActiveThumbIndex)
+                Dim oldValue As Integer = Values(ActiveThumbIndex)
 
                 If oldValue <> newValue Then
                     '
@@ -116,11 +129,29 @@ Namespace MultiRangeTrackBarControlExample
             End If
         End Sub
 
+
         Protected Overrides Sub OnMouseUp(ByVal e As MouseEventArgs)
             ActiveThumbIndex = -1
             MyBase.OnMouseUp(e)
         End Sub
 
         Public Property ActiveThumbIndex As Integer = -1
+        Public Property DraggedValue As Integer
+        Public Property IsDragStarted As Boolean = False
+
     End Class
+
+    Public Module ObservableCollectionExtensions
+        <Extension()>
+        Public Function LastIndexOf(Of T)(ByVal collection As ObservableCollection(Of T), ByVal item As T) As Integer
+            For i = collection.Count - 1 To 0 Step -1
+
+                If collection(i).Equals(item) Then
+                    Return i
+                End If
+            Next
+
+            Return -1
+        End Function
+    End Module
 End Namespace

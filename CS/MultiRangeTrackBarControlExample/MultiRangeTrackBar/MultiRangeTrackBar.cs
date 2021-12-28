@@ -79,11 +79,21 @@ namespace MultiRangeTrackBarControlExample {
         protected override void OnMouseDown(MouseEventArgs e) {
             base.OnMouseDown(e);
             int value = ViewInfo.ValueFromPoint(e.Location);
-            ActiveThumbIndex = Values.IndexOf(value);
+            if (Values.Contains(value)) {
+                IsDragStarted = true;
+                DraggedValue = value;
+            }
         }
 
         protected override void OnMouseMove(MouseEventArgs e) {
             base.OnMouseMove(e);
+            if (IsDragStarted) {
+                int newValue = ViewInfo.ValueFromPoint(e.Location);
+                if(DraggedValue != newValue) {
+                    IsDragStarted = false;
+                    ActiveThumbIndex = newValue < DraggedValue ? Values.IndexOf(DraggedValue) : Values.LastIndexOf(DraggedValue);
+                }
+            }
             if (ActiveThumbIndex != -1) {
                 int valueFromPoint = ViewInfo.ValueFromPoint(e.Location);
 
@@ -103,11 +113,24 @@ namespace MultiRangeTrackBarControlExample {
         }
 
         protected override void OnMouseUp(MouseEventArgs e) {
-
+            IsDragStarted = false;
             ActiveThumbIndex = -1;
             base.OnMouseUp(e);
         }
 
         public int ActiveThumbIndex { get; protected set; } = -1;
+        public int DraggedValue { get; protected set; }
+        public bool IsDragStarted { get; protected set; } = false;
+    }
+
+    public static class ObservableCollectionExtensions {
+        public static int LastIndexOf<T>(this ObservableCollection<T> collection, T item) {
+            for (int i = collection.Count - 1; i >= 0; i--) {
+                if (collection[i].Equals(item)) {
+                    return i;
+                }
+            }
+            return -1;
+        }
     }
 }
